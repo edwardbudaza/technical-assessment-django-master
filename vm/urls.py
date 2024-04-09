@@ -5,7 +5,8 @@ from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 from rest_framework import permissions
 
-from app.views import CreateUserAPIView  # Import CreateUserAPIView from app views
+from app.views import CreateUserAPIView
+from vm import settings  # Import CreateUserAPIView from app views
 
 schema_view = get_schema_view(
     openapi.Info(
