@@ -5,26 +5,15 @@ Just replace settings.py - with the ones below:
 You may also need to execute commands on the docker container for creating superuser.
 
 ```
-
 import os
 
-# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+SECRET_KEY = os.environ.get("SECRET_KEY", "j9h=s!uu*pf%8p#mkd_tdw#ek*+ite7#f5gxg7i%sw64_c^0kx")
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "j9h=s!uu*pf%8p#mkd_tdw#ek*+ite7#f5gxg7i%sw64_c^0kx"
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get("DEBUG", False)
 
 ALLOWED_HOSTS = []
-
-
-# Application definition
 
 INSTALLED_APPS = [
     "django.contrib.admin",
@@ -69,21 +58,24 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "vm.wsgi.application"
 
-
 # Database
-# https://docs.djangoproject.com/en/2.2/ref/settings/#databases
-
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
+        "ENGINE": os.environ.get("DB_ENGINE", "django.db.backends.postgresql"),
+        "NAME": os.environ.get("DB_NAME", "main_database"),
+        "USER": os.environ.get("DB_USER", "john"),
+        "PASSWORD": os.environ.get("DB_PASSWORD", "71uGNFwj"),
+        "HOST": os.environ.get("DB_HOST", "db"),
+        "PORT": os.environ.get("DB_PORT", 5432),
     }
 }
 
+# Superuser Credentials
+ADMIN_USERNAME = os.environ.get("DJANGO_SUPERUSER_USERNAME", "john")
+ADMIN_PASSWORD = os.environ.get("DJANGO_SUPERUSER_PASSWORD", "pOuLvot5oy")
+ADMIN_EMAIL = os.environ.get("DJANGO_SUPERUSER_EMAIL", "john@example.com")
 
 # Password validation
-# https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
-
 AUTH_PASSWORD_VALIDATORS = [
     {
         "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
@@ -99,23 +91,11 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
-# Internationalization
-# https://docs.djangoproject.com/en/2.2/topics/i18n/
-
 LANGUAGE_CODE = "en-us"
-
 TIME_ZONE = "UTC"
-
 USE_I18N = True
-
 USE_L10N = True
-
 USE_TZ = True
-
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = "/static/"
 
@@ -130,4 +110,5 @@ REST_FRAMEWORK = {
 }
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
 ```

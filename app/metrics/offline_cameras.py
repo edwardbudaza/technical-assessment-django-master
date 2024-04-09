@@ -13,14 +13,9 @@ def get_offline_cameras(minutes_threshold):
     )
 
     offline_cameras = set()  # Use a set to store unique camera instances
-    print("------------offline---------")
-    print(offline_logs)
-    print("------------offline---------")
+    
     # Extract unique cameras from offline logs
     for log in offline_logs:
-        print("------------offline-below---------")
-        print(log.camera_id)
-        print("------------offline-above---------")
     # Extract unique cameras from offline 
 
         offline_cameras.add(log.camera)

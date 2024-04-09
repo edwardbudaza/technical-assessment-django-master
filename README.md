@@ -1,61 +1,39 @@
-# VisioMetric Technical Test
+## Installation from ZIP File
 
-## Introduction
+To run the Technical Assessment Django Master locally using the provided ZIP file, follow these steps:
 
-You have been tasked with developing a new feature for a web application designed for surveillance officers to log the status of the surveillance cameras under their responsibility. The application serves a broad user base of officers.
+1. Download the ZIP file containing the project code and SQLite database.
+2. Extract the ZIP file to a directory of your choice.
+3. Navigate to the extracted directory:
 
-Currently, the application relies on the client-side to determine the status of a camera. The frontend team has requested the addition of several backend endpoints to enable clients to update and log the status of the cameras directly.
+   ```bash
+   cd technical-assessment-django-master
+   ```
 
-### Requirement 1: Problem State Logging
+1. (Optional) Activate a virtual environment for the project:
 
-A Camera's status is determined by the most recent log entry. I.e., if a camera's most recent CameraStatusLog entry is "Working", the camera is considered to be in a working state.
-
-Clients (via a mobile or desktop app) should be capable of:
-
-1. Marking a camera as being in a problem state (e.g., offline, incorrect position) by creating a corresponding log entry.
-2. Logging when a camera returns to a working state, which resolves the existing problem log.
-
-Considerations:
-
-- To resolve a problem state, both a start and end time must be recorded in the log. If the end time is absent, the camera is deemed to be still in a problem state.
-- Problem states must not overlap. If a camera is currently in a problem state, a new status log cannot be created until the existing one is resolved.
-- The log must record the identity of the user who created it.
-
-### Requirement 2: Camera Status Retrieval
-
-Clients should be able to fetch a list of all cameras along with their latest status.
-
-Example output:
-
-```json
-[
-    {
-        "id": 1,
-        "name": "Camera E1",
-        "group": "Entrance",
-        "status": "Working"
-    },
-    {
-        "id": 2,
-        "name": "Camera E2",
-        "group": "Entrance",
-        "status": "Offline"
-    }
-]
+```bash
+python -m venv venv
+source venv/bin/activate   # On Unix/Linux
+venv\Scripts\activate.bat  # On Windows
 ```
 
-### Requirement 3: Metrics Extraction
+2. Install the required dependencies:
 
-The security manager requires metrics on camera issues within specific time frames. Develop reusable code to determine:
+```bash
+pip install -r requirements.txt
+```
 
-- Which camera has experienced the most issues.
-- Any cameras that have been offline for more than X minutes.
-- The day with the highest number of issues logged.
 
-### Coding Restrictions
+3. Run the Django development server:
 
-You are encouraged to modify and extend this Django application to meet the above requirements. We value solutions that are straightforward, comprehensible, and maintainable. Please be prepared to justify your design and implementation choices.
+```bash
+python manage.py runserver
+```
 
-### Time Limit
 
-While there's no set time limit, we recommend spending approximately 2-3 hours on this test.
+4. Visit [127.0.0.1:8000/swagger](http://127.0.0.1:8000/swagger) in your web browser to explore the API endpoints.
+
+If needed, you can access the live app at [Technical Assessment Django Master on Render](https://technical-assessment-django-master.onrender.com/swagger/). Please note that the service may become inactive when not in use, but it is fast and all the endpoints can be seen there.
+
+Refer to the `.env` file provided with the project for superuser credentials.
